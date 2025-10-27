@@ -32,3 +32,42 @@ int main() {
     }
     return 0;
 }
+
+
+Or ,
+
+    #include <iostream>
+#include <cmath>
+using namespace std;
+double g(double x) {
+    return pow(4 * x + 9, 1.0 / 3.0);
+}
+int main() {
+    double x0, x1, tolerance;
+    int maxIter;
+    cout << "Enter initial guess (x0): ";
+    cin >> x0;
+    cout << "Enter tolerance (e.g., 0.0001): ";
+    cin >> tolerance;
+    cout << "Enter maximum number of iterations: ";
+    cin >> maxIter;
+    int iteration = 0;
+    cout << "\nIteration\t x0\t\t g(x0)\n";
+    cout << "----------------------------------------------------\n";
+    do {
+        x1 = g(x0);
+        double error = fabs(x1 - x0);
+        cout << iteration + 1 << "\t\t" << x0 << "\t\t" << x1 << endl;
+        if (error < tolerance) {
+            cout << "\nRoot found: " << x1 << endl;
+            cout << "After " << iteration + 1 << " iterations.\n";
+            return 0;
+        }
+        x0 = x1;
+        iteration++;
+    } while (iteration < maxIter);
+    cout << "\nMethod did not converge after " << maxIter << " iterations." << endl;
+    cout << "Last approximation: " << x1 << endl;
+
+    return 0;
+}
